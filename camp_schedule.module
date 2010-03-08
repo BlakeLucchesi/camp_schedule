@@ -1,20 +1,29 @@
 <?php
 
-define('CAMP_SCHEDULE_NODE_TYPE', 'session');
-
 /**
  * Implementation of hook_menu().
  */
 function camp_schedule_menu() {
   $items = array();
-  $items['manage/schedule'] = array(
-    'title' => 'Schedule Manager',
+  $items['admin/settings/camp-schedule'] = array(
+    'title' => 'Camp Schedule Settings',
+    'description' => 'Settings related to the camp schedule module.',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('camp_schedule_manage_form'),
-    'file' => 'schedule.admin.inc',
+    'page arguments' => array('camp_schedule_settings_form'),
     'access callback' => 'user_access',
     'access arguments' => array('manage schedule'),
-    'type' => MENU_CALLBACK,
+    'file' => 'camp_schedule.admin.inc',
+    'type' => MENU_NORMAL_ITEM
+  );
+  $items['admin/content/schedule'] = array(
+    'title' => 'Camp Schedule',
+    'description' => 'Arrange nodes into the camp schedule.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('camp_schedule_manage_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('manage schedule'),
+    'file' => 'camp_schedule.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
   );
   return $items;
 }
@@ -33,7 +42,17 @@ function camp_schedule_theme() {
   return array(
     'camp_schedule_manage_form' => array(
       'arguments' => array('form' => NULL),
-      'file' => 'schedule.admin.inc',
+      'file' => 'camp_schedule.admin.inc',
     )
   );
+}
+
+/**
+ * Implementation of hook_help().
+ */
+function camp_schedule_help($path) {
+  switch ($path) {
+    case 'admin/settings/camp-schedule':
+      return '<p>'. t('Use the form below to select the node types you\'d like to select from when making your schedule.') .'</p>';
+  }
 }

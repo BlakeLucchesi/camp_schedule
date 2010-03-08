@@ -1,6 +1,24 @@
 <?php
 
 /**
+ * Schedule settings.
+ */
+function camp_schedule_settings_form() {
+  $types = node_get_types();
+  foreach ($types as $type) {
+    $options[$type->type] = $type->name;
+  }
+  
+  $form['camp_schedule_node_types'] = array(
+    '#title' => 'Node Types',
+    '#type' => 'checkboxes', 
+    '#options' => $options,
+    '#default_value' => variable_get('camp_schedule_node_types', array()),
+  );           
+  return system_settings_form($form);
+}
+
+/**
  * Manage schedule form.
  */
 function camp_schedule_manage_form(&$form_state) {
