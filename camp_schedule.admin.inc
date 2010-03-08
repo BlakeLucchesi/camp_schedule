@@ -13,7 +13,7 @@ function camp_schedule_settings_form() {
     '#title' => 'Node Types',
     '#type' => 'checkboxes', 
     '#options' => $options,
-    '#default_value' => variable_get('camp_schedule_node_types', array()),
+    '#default_value' => _camp_schedule_node_types(),
   );           
   return system_settings_form($form);
 }
@@ -31,28 +31,30 @@ function camp_schedule_manage_form(&$form_state) {
   
   // Define the field names we'd like to render.
   $render = array('field_session_day', 'field_session_time', 'field_session_room');
-  $type = content_types(CAMP_SCHEDULE_NODE_TYPE);
+  $types = _camp_schedule_node_types();
+  foreach ($types as $type) {
+    $content_types[$type] = content_types($type);
+  }
 
-
-  drupal_add_js("Drupal.behaviors.schedule = function() {
-    $('tr').hover(function() {
+  drupal_add_js("Drupal.behaviors.camp_schedule = function() {
+    $('tr', '#camp-schedule-manage-form').hover(function() {
       $(this).find('td').css('background-color', '#FFFCCC');
     }, function() {
       $(this).find('td').css('background-color', 'transparent');      
     });
+    $('label', '#camp-schedule-manage-form').hide();
   }", 'inline');
 
-  // print_r($options);
-  // die;
   // Find all of our session nodes.
   $form['#tree'] = TRUE;
-  $query = db_query("SELECT n.nid FROM {node} n LEFT JOIN {content_type_session} c ON (n.nid = c.nid) WHERE n.type = '%s' ORDER BY c.field_session_day_value, c.field_session_room_value, c.field_session_time_value ASC", CAMP_SCHEDULE_NODE_TYPE);
+  $query = db_query("SELECT nid FROM {node} WHERE type IN (". db_placeholders($types, 'varchar') .") AND status = 1", $types);
   while ($row = db_fetch_object($query)) {
     $node = node_load($row->nid);
+    
     $form['#node'] = $node;
     $form['nodes'][$node->nid]['title'] = array('#value' => l($node->title, 'node/'. $node->nid));
 
-    foreach ($type['fields'] as $field_name => $field) {
+    foreach ($content_types[$node->type]['fields'] as $field_name => $field) {
       if (in_array($field_name, $render)) {
         $form['#field_info'][$field['field_name']] = $field;
         $form['nodes'][$node->nid] += content_field_form($form, $form_state, $field);
@@ -69,17 +71,18 @@ function camp_schedule_manage_form(&$form_state) {
 /**
  * Form theme function.
  */
-function theme_schedule_manage_form($form) {
+function theme_camp_schedule_manage_form($form) {
   $header = array('Session Title', 'Day', 'Room', 'Time');
-  // print_r($form['nodes']);
-  foreach ($form['nodes'] as $nid => $node) {
-    if (is_numeric($nid)) {
-      $rows[] = array(
-        drupal_render($form['nodes'][$nid]['title']),
-        drupal_render($form['nodes'][$nid]['field_session_day']),
-        drupal_render($form['nodes'][$nid]['field_session_room']),
-        drupal_render($form['nodes'][$nid]['field_session_time'])
-      );
+  if (is_array($form['nodes'])) {
+    foreach ($form['nodes'] as $nid => $node) {
+      if (is_numeric($nid)) {
+        $rows[] = array(
+          drupal_render($form['nodes'][$nid]['title']),
+          drupal_render($form['nodes'][$nid]['field_session_day']),
+          drupal_render($form['nodes'][$nid]['field_session_room']),
+          drupal_render($form['nodes'][$nid]['field_session_time'])
+        );
+      }
     }
   }
   $output .= theme('table', $header, $rows);
@@ -120,4 +123,11 @@ function camp_schedule_manage_form_submit($form, &$form_state) {
       node_save($node);
     }
   }
+}
+
+/**
+ * 
+ */
+function _camp_schedule_node_types() {
+  return array_filter(variable_get('camp_schedule_node_types', array()));
 }

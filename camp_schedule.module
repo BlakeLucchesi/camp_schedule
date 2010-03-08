@@ -15,7 +15,7 @@ function camp_schedule_menu() {
     'file' => 'camp_schedule.admin.inc',
     'type' => MENU_NORMAL_ITEM
   );
-  $items['admin/content/schedule'] = array(
+  $items['admin/content/camp-schedule'] = array(
     'title' => 'Camp Schedule',
     'description' => 'Arrange nodes into the camp schedule.',
     'page callback' => 'drupal_get_form',
