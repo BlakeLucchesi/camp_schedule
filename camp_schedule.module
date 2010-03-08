@@ -1,0 +1,39 @@
+<?php
+
+define('CAMP_SCHEDULE_NODE_TYPE', 'session');
+
+/**
+ * Implementation of hook_menu().
+ */
+function camp_schedule_menu() {
+  $items = array();
+  $items['manage/schedule'] = array(
+    'title' => 'Schedule Manager',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('camp_schedule_manage_form'),
+    'file' => 'schedule.admin.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('manage schedule'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function camp_schedule_perm() {
+  return array('manage schedule');
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function camp_schedule_theme() {
+  return array(
+    'camp_schedule_manage_form' => array(
+      'arguments' => array('form' => NULL),
+      'file' => 'schedule.admin.inc',
+    )
+  );
+}
