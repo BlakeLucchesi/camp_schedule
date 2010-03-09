@@ -46,7 +46,6 @@ function camp_schedule_manage_form(&$form_state) {
     }, function() {
       $(this).find('td').css('background-color', 'transparent');      
     });
-    $('label', '#camp-schedule-manage-form').hide();
   }", 'inline');
 
   // Find all of our session nodes.
@@ -66,6 +65,9 @@ function camp_schedule_manage_form(&$form_state) {
         $form['nodes'][$node->nid] += content_field_form($form, $form_state, $field);
       }
     }
+    $form['nodes'][$node->nid]['field_session_day']['#title'] = '';
+    $form['nodes'][$node->nid]['field_session_room']['#title'] = '';
+    $form['nodes'][$node->nid]['field_session_time']['#title'] = '';
   }
   $form['submit'] = array(
     '#type' => 'submit',
