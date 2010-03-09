@@ -264,110 +264,88 @@ function camp_schedule_views_default_views() {
       'relationship' => 'none',
     ),
   ));
-  $handler->override_option('filters', array(
+  $handler->override_option('arguments', array(
     'tid' => array(
-      'operator' => 'or',
-      'value' => array(
-        '1423' => 1423,
-        '1438' => 1438,
-        '1428' => 1428,
-        '1433' => 1433,
-        '1448' => 1448,
-        '1443' => 1443,
-      ),
-      'group' => '0',
-      'exposed' => TRUE,
-      'expose' => array(
-        'use_operator' => 0,
-        'operator' => 'tid_op',
-        'identifier' => 'tid',
-        'label' => 'Track',
-        'optional' => 1,
-        'single' => 0,
-        'remember' => 0,
-        'reduce' => 0,
-      ),
-      'type' => 'select',
-      'limit' => TRUE,
-      'vid' => '23',
+      'default_action' => 'ignore',
+      'style_plugin' => 'default_summary',
+      'style_options' => array(),
+      'wildcard' => 'all',
+      'wildcard_substitution' => 'All',
+      'title' => '',
+      'breadcrumb' => '',
+      'default_argument_type' => 'fixed',
+      'default_argument' => '',
+      'validate_type' => 'none',
+      'validate_fail' => 'not found',
+      'break_phrase' => 0,
+      'add_table' => 0,
+      'require_value' => 0,
+      'reduce_duplicates' => 0,
+      'set_breadcrumb' => 0,
       'id' => 'tid',
       'table' => 'term_node',
       'field' => 'tid',
-      'hierarchy' => 0,
-      'override' => array(
-        'button' => 'Override',
+      'validate_user_argument_type' => 'uid',
+      'validate_user_roles' => array(
+        '2' => 0,
+        '3' => 0,
+        '5' => 0,
+        '4' => 0,
+        '8' => 0,
+        '6' => 0,
+        '7' => 0,
       ),
       'relationship' => 'none',
-      'reduce_duplicates' => 0,
+      'default_options_div_prefix' => '',
+      'default_argument_user' => 0,
+      'default_argument_fixed' => '',
+      'default_argument_php' => '',
+      'validate_argument_node_type' => array(
+        'webform' => 0,
+        'product' => 0,
+        'preconference' => 0,
+        'training' => 0,
+        'forum' => 0,
+        'conference_category' => 0,
+        'date' => 0,
+        'event' => 0,
+        'faq' => 0,
+        'food' => 0,
+        'front_page_ads' => 0,
+        'logistics_category' => 0,
+        'news' => 0,
+        'page' => 0,
+        'profile' => 0,
+        'session' => 0,
+        'sponsor' => 0,
+        'swag' => 0,
+      ),
+      'validate_argument_node_access' => 0,
+      'validate_argument_nid_type' => 'nid',
+      'validate_argument_vocabulary' => array(
+        '6' => 0,
+        '5' => 0,
+        '2' => 0,
+        '23' => 0,
+        '18' => 0,
+        '13' => 0,
+        '8' => 0,
+        '3' => 0,
+        '1' => 0,
+      ),
+      'validate_argument_type' => 'tid',
+      'validate_argument_transform' => 0,
+      'validate_user_restrict_roles' => 0,
+      'validate_argument_node_flag_name' => '*relationship*',
+      'validate_argument_node_flag_test' => 'flaggable',
+      'validate_argument_node_flag_id_type' => 'id',
+      'validate_argument_user_flag_name' => '*relationship*',
+      'validate_argument_user_flag_test' => 'flaggable',
+      'validate_argument_user_flag_id_type' => 'id',
+      'validate_argument_php' => '',
     ),
-    'tid_1' => array(
-      'operator' => 'or',
-      'value' => array(
-        '1378' => 1378,
-        '1383' => 1383,
-        '1388' => 1388,
-        '1458' => 1458,
-      ),
-      'group' => '0',
-      'exposed' => TRUE,
-      'expose' => array(
-        'use_operator' => 0,
-        'operator' => 'tid_1_op',
-        'identifier' => 'tid_1',
-        'label' => 'Skill',
-        'optional' => 1,
-        'single' => 0,
-        'remember' => 0,
-        'reduce' => 0,
-      ),
-      'type' => 'select',
-      'limit' => TRUE,
-      'vid' => '18',
-      'id' => 'tid_1',
-      'table' => 'term_node',
-      'field' => 'tid',
-      'hierarchy' => 0,
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
-      'reduce_duplicates' => 0,
-    ),
-    'tid_2' => array(
-      'operator' => 'or',
-      'value' => array(
-        '1398' => 1398,
-        '1463' => 1463,
-        '1468' => 1468,
-        '1393' => 1393,
-        '1453' => 1453,
-        '1403' => 1403,
-      ),
-      'group' => '0',
-      'exposed' => TRUE,
-      'expose' => array(
-        'use_operator' => 0,
-        'operator' => 'tid_2_op',
-        'identifier' => 'tid_2',
-        'label' => 'Industry',
-        'optional' => 1,
-        'single' => 0,
-        'remember' => 0,
-        'reduce' => 0,
-      ),
-      'type' => 'select',
-      'limit' => TRUE,
-      'vid' => '13',
-      'id' => 'tid_2',
-      'table' => 'term_node',
-      'field' => 'tid',
-      'hierarchy' => 0,
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
-      'reduce_duplicates' => 0,
-    ),
+  ));
+  $handler->override_option('filters', array(
     'status' => array(
       'operator' => '=',
       'value' => '1',
@@ -414,6 +392,9 @@ function camp_schedule_views_default_views() {
   $handler->override_option('title', 'Schedule');
   $handler->override_option('items_per_page', 50);
   $handler->override_option('distinct', 1);
+  $handler->override_option('style_options', array(
+    'grouping' => 'field_session_day_value',
+  ));
   $handler->override_option('row_options', array(
     'inline' => array(
       'field_session_time_value' => 'field_session_time_value',
@@ -422,22 +403,36 @@ function camp_schedule_views_default_views() {
     ),
     'separator' => '',
   ));
-  $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->override_option('path', 'conference/schedule');
-  $handler->override_option('menu', array(
-    'type' => 'none',
-    'title' => '',
-    'description' => '',
-    'weight' => 0,
-    'name' => 'navigation',
-  ));
-  $handler->override_option('tab_options', array(
-    'type' => 'none',
-    'title' => '',
-    'description' => '',
+  $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
+  $handler->override_option('pane_title', 'Schedule');
+  $handler->override_option('pane_description', 'Schedule View');
+  $handler->override_option('pane_category', array(
+    'name' => 'View panes',
     'weight' => 0,
   ));
-  
+  $handler->override_option('allow', array(
+    'use_pager' => 0,
+    'items_per_page' => 0,
+    'offset' => 0,
+    'link_to_view' => 0,
+    'more_link' => 0,
+    'path_override' => 0,
+    'title_override' => 'title_override',
+    'exposed_form' => FALSE,
+  ));
+  $handler->override_option('argument_input', array(
+    'tid' => array(
+      'type' => 'user',
+      'context' => 'node.uid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Track tid',
+    ),
+  ));
+  $handler->override_option('link_to_view', 0);
+  $handler->override_option('inherit_panels_path', 0);
+
   $views['schedule'] = $view;
   return $views;
 }
